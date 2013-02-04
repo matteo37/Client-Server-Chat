@@ -20,20 +20,18 @@ while True:
 	
 	try:
 		print >>sys.stderr, 'connection from', client_address
-		
+		connection.send("Welcome to Matt's Chat \n")
         # Receive the data in small chunks and retransmit it
 		while True:
 			#print >>sys.stderr, 'start', 
 			data = connection.recv(2000)
 			processed_data = data.lower()
-			print >>sys.stderr, data
-
 			return_data = ""
 			if(processed_data.startswith('adios')):
 				#connection.shutdown(socket.SHUT_RDWR)
 				connection.close()
 			elif(processed_data.startswith('help')):
-				return_data = "\n help lists all of the commands and their syntax \n test: <text>test data</text> echoes your test data back to you \n name: <text>your name</text> sets your username \n get lists all of the contents of the chat \n push <text>Content</text> adds a new line to the chat \n getrange # # will return the chat lines provided. \n adios quits the chat program"				
+				return_data = "help lists all of the commands and their syntax \n test: <text>test data</text> echoes your test data back to you \n name: <text>your name</text> sets your username \n get lists all of the contents of the chat \n push <text>Content</text> adds a new line to the chat \n getrange # # will return the chat lines provided. \n adios quits the chat program"				
 			elif(processed_data.startswith('test:')):
 				return_data = data[5:].strip()
 			elif(processed_data.startswith('name:')):
@@ -63,8 +61,7 @@ while True:
 			else:
 				print >>sys.stderr, 'no more data from', client_address
 				break
-			#print >>sys.stderr, 'finish', 
 
-	finally:
+	except:
         # Clean up the connection
 		connection.close()

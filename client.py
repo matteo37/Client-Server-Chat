@@ -36,6 +36,6 @@ try:
 		data = sock.recv(2000)
 		print >>sys.stderr, data
 
-finally:
+except:
 	print >>sys.stderr, 'closing socket'
 	sock.close()
