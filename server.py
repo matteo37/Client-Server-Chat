@@ -1,10 +1,9 @@
-import socket
+from socket import *
 import sys
 
 # Create a TCP/IP socket
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-testing = "getrangeasdfadsfs"
-print >>sys.stderr, testing.startswith('getrange')
+sock = socket(AF_INET,SOCK_STREAM)
+
 # Bind the socket to the port
 server_address = ('localhost', 9020)
 print >>sys.stderr, 'starting up on %s port %s' % server_address

@@ -1,9 +1,9 @@
-import socket
+from socket import *
 import sys
 import shlex
 # reaver 
 # Create a TCP/IP socket
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock = socket(AF_INET,SOCK_STREAM)
 
 # user_input = raw_input()
 user_input = sys.argv
