@@ -22,11 +22,12 @@ def new_connection(conn):
 		connection.send("Welcome to Matt's Chat \r\n")
 		#Loop on responses
 		data = connection.recv(2000)
+		chatname = "";
 		while (data.startswith('adios') == False):
 			print data
 			processed_data = data.lower().strip()
 			return_data = ""
-			chatname = "";
+			
 			if(processed_data.startswith('help')):
 				return_data = "help lists all of the commands and their syntax \n test: <text>test data</text> echoes your test data back to you \n name: <text>your name</text> sets your username \n get lists all of the contents of the chat \n push: <text>Content</text> adds a new line to the chat \n getrange # # will return the chat lines provided. \n adios quits the chat program\r\n"	
 				connection.send(return_data)			
