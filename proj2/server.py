@@ -18,13 +18,16 @@ def new_connection(conn):
 	connection = conn
     # Wait for a connection
 	try:
+		print 'connected'
 		#Loop on responses
 		data = connection.recv(2000)
-		if(processed_data.startswith('help')):
-			connection.send(return_data)			
-		elif(processed_data.startswith('test:')):
-			return_data = data[5:].strip() + " \r\n"
-			connection.send(return_data)
+		if(data.startswith('GET')):
+			if(data.startswith('GET /CHAT')):
+				return_data = data.split('?')[1].split('&')
+				tuples = []
+				for r in return_data:
+					r.split('=')			
+			connection.send('hello')			
 	except:
         # Clean up the connection
 		connection.close()
