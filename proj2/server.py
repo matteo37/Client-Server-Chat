@@ -1,13 +1,12 @@
-from socket import *
-import sys
-from thread import *
-
+from socket import socket, AF_INET, SOCK_STREAM
+from thread import start_new_thread
 # Create a TCP/IP socket
+
 sock = socket(AF_INET,SOCK_STREAM)
 
 # Bind the socket to the port
 server_address = ('', 9020)
-print >> sys.stderr, 'starting up on %s port %s' % server_address
+print 'starting up on %s port %s' % server_address
 sock.bind(server_address)
 
 # Listen for incoming connections
@@ -34,7 +33,7 @@ def new_connection(conn):
 		#sock.close()
 try:
 	while(True):
-		print >>sys.stderr, 'waiting for a connection'
+		print 'waiting for a connection'
 		connection, client_address = sock.accept()
 		start_new_thread(new_connection,(connection,))
 except:
