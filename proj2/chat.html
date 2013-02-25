@@ -4,15 +4,35 @@
 </head>
 <body>
 	<h1>Bryson and Matt's Chat Room</h1>
-	<form>
+
+	<textarea rows="30" name="S1" cols="100"></textarea>
+	<br>
+	<form name="chat_form" id="chat_form">	
 		<label>Name:</label>
-		<input type='text' name='name' />
-		<br>
-		<textarea rows="30" name="S1" cols="100"></textarea>
-		<br>
+		<input type='text' name='name' id="display_chat"/>
+		<br>		
 		<label>Content:</label>
 		<input type='text' name='Content' />
-		<input type="submit" name="submit" value="submit"/>
+		<input type="submit" name="submit" value="submit" id="submit_form"/>
 	</form>
 </body>
 </html>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>
+$(function() {
+    
+
+$('#submit_form').click(function(e) {
+	e.preventDefault();
+	$.ajax({
+	    type: "GET",
+	    data: $('#chat_form').serialize(),
+	    url: "localhost:9020/CHAT"
+	}).done(function(data){
+	    $("#display_chat").html(data);
+	    alert(data);
+	});
+});
+  
+});
+</script>
