@@ -1,9 +1,1 @@
-bryson: wtf HTTP/1.1
-Host: localhost:9020
-Connection: keep-alive
-Accept: */*
-X-Requested-With: XMLHttpRequest
-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.97 Safari/537.22
-Referer: http://localhost:9020/
-Accept-Encoding: gzip,deflate,sdch
-Accept-Language: en-US,en;q
+wtc: 

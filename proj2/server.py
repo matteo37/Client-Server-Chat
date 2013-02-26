@@ -32,7 +32,7 @@ def new_connection(conn):
 			 	temp = r.split('=')
 				if temp[0].lower() == 'name':
 					name = temp[1]
-				if temp[0].lower() == 'content':
+				if temp[0].lower() == 'line':
 					content = temp[1]		
 			# Just ake it put the contents into the chatlog.txt file and then they will be displayed nicely
 			file = open('chatlog.txt', 'w')
