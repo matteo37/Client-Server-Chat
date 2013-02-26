@@ -43,7 +43,7 @@ def new_connection(conn):
 			connection.send(str(file.read()))	
 			file.close()	
 		elif(data.startswith('GET')):
-			f = open('chat.html', 'r')
+			f = open('fish.gif', 'r')
 			connection.send(str(f.read()))	
 			f.close()	
 		
