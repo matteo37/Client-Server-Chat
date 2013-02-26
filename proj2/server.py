@@ -35,7 +35,7 @@ def new_connection(conn):
 				if temp[0].lower() == 'line':
 					content = str(temp[1]).split(' HTTP')[0]		
 			# Just ake it put the contents into the chatlog.txt file and then they will be displayed nicely
-			file = open('chatlog.txt', 'w')
+			file = open('chatlog.txt', 'a')
 			file.write(str(name)+': '+str(content)+'\n')
 			file.close()
 			file = open('chatlog.txt', 'r')

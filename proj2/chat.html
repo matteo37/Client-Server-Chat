@@ -34,11 +34,11 @@ $(function() {
 
 	$('#submit_form').click(function(e) {
 		e.preventDefault();
+		ajaxFunction();
 		$('#line').val('');
-		ajaxFunction;
 	});
 
-	setInterval( "ajaxFunction()", 10000 ); 
+	//setInterval( "ajaxFunction()", 10000 ); 
 
 
 });
