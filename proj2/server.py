@@ -42,10 +42,14 @@ def new_connection(conn):
 			file = open('chatlog.txt', 'r')
 			connection.send(str(file.read()))	
 			file.close()	
-		elif(data.startswith('GET')):
+		elif(data.startswith('GET /fish.gif')):
 			f = open('fish.gif', 'r')
 			connection.send(str(f.read()))	
 			f.close()	
+		else:
+			f = open('chat.html', 'r')
+			connection.send(str(f.read()))	
+			f.close()				
 		
 		connection.close()
 		#sock.close()
