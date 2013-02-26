@@ -25,11 +25,18 @@ def new_connection(conn):
 		#Loop on responses
 		data = connection.recv(2000)
 		if(data.startswith('GET /CHAT')):
-			# return_data = data.split('?')[1].split('&')
-			# tuples = []
-			# for r in return_data:
-			# 	r.split('=')		
+			return_data = data.split('?')[1].split('&')
+			name = None
+			content = None
+			for r in return_data:
+			 	temp = r.split('=')
+				if temp[0].lower() == 'name':
+					name = temp[1]
+				if temp[0].lower() == 'content':
+					content = temp[1]		
 			# Just ake it put the contents into the chatlog.txt file and then they will be displayed nicely
+			file = open('chatlog.txt', 'w')
+			file.write(str(name)+': '+str(content))
 			file = open('chatlog.txt', 'r')
 			connection.send(str(file.read()))	
 			file.close()	
