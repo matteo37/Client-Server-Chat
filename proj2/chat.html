@@ -5,11 +5,11 @@
 <body>
 	<h1>Bryson and Matt's Chat Room</h1>
 
-	<textarea rows="30" name="S1" cols="100"></textarea>
+	<textarea rows="30" name="S1" cols="100" id="display_chat"></textarea>
 	<br>
 	<form name="chat_form" id="chat_form">	
 		<label>Name:</label>
-		<input type='text' name='name' id="display_chat"/>
+		<input type='text' name='name' />
 		<br>		
 		<label>Content:</label>
 		<input type='text' name='Content' />
@@ -27,10 +27,9 @@ $('#submit_form').click(function(e) {
 	$.ajax({
 	    type: "GET",
 	    data: $('#chat_form').serialize(),
-	    url: "localhost:9020/CHAT"
+	    url: "http://localhost:9020/CHAT"
 	}).done(function(data){
-	    $("#display_chat").html(data);
-	    alert(data);
+	    $("#display_chat").val(data);
 	});
 });
   

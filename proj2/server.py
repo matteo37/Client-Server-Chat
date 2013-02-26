@@ -1,17 +1,17 @@
-from socket import socket, AF_INET, SOCK_STREAM
-from thread import start_new_thread
-# Create a TCP/IP socket
+from socket import *
+import sys
+from thread import *
 
+# Create a TCP/IP socket
 sock = socket(AF_INET,SOCK_STREAM)
 
 # Bind the socket to the port
 server_address = ('', 9020)
-print 'starting up on %s port %s' % server_address
+print >> sys.stderr, 'starting up on %s port %s' % server_address
 sock.bind(server_address)
 
 # Listen for incoming connections
 sock.listen(20)
-f = open('chat.html', 'r')
 #print >> sys.stderr, f.read()		
 
 #initialize vars
@@ -24,20 +24,28 @@ def new_connection(conn):
 		#Loop on responses
 		data = connection.recv(2000)
 		if(data.startswith('GET /CHAT')):
-			return_data = data.split('?')[1].split('&')
-			tuples = []
-			for r in return_data:
-				r.split('=')		
-			connection.send("working")	
+			# return_data = data.split('?')[1].split('&')
+			# tuples = []
+			# for r in return_data:
+			# 	r.split('=')		
+			# Just ake it put the contents into the chatlog.txt file and then they will be displayed nicely
+			file = open('chatlog.txt', 'r')
+			connection.send(str(file.read()))	
+			file.close()	
 		elif(data.startswith('GET')):
-			connection.send(str(f.read()))		
+			f = open('chat.html', 'r')
+			connection.send(str(f.read()))	
+			f.close()	
+		
+		connection.close()
+		#sock.close()
 	except:
         # Clean up the connection
 		connection.close()
 		#sock.close()
 try:
 	while(True):
-		print 'waiting for a connection'
+		print >>sys.stderr, 'waiting for a connection'
 		connection, client_address = sock.accept()
 		start_new_thread(new_connection,(connection,))
 except:
