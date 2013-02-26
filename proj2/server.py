@@ -31,10 +31,10 @@ def new_connection(conn):
 			for r in return_data:
 				temp = r.split('=')
 				if temp[0].lower() == 'name':
-					name = temp[1]
+					name = temp[1].replace('+',' ')
 				if temp[0].lower() == 'line':
-					content = str(temp[1]).split(' HTTP')[0]		
-			# Just ake it put the contents into the chatlog.txt file and then they will be displayed nicely
+					content = str(temp[1]).split(' HTTP')[0].replace('+',' ')
+                        # Just ake it put the contents into the chatlog.txt file and then they will be displayed nicely
 			if name != None and content != None:
 				file = open('chatlog.txt', 'a')
 				file.write(str(name)+': '+str(content)+'\n')
