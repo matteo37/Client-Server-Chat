@@ -13,10 +13,7 @@
 			</label>
 		</form>
 		<form name="chat_form" id="chat_form">	
-			<label>
-				<span>Name:</span>
-				<input type='text' class="input_text" name='name' />
-			</label>
+				<input type='hidden' class="input_text" name='name' />
 			<label>
 				<span>Content:</span>
 				<input type='text' class="input_text" name='line' id='line' />
@@ -32,6 +29,8 @@
 <script src="/jquery.cookie.js"></script>
 <script>
 $(function() {
+	$.cookie("test", 1);
+	console.log($.cookie("test"));
 	ajaxFunction = function ajaxCall()
 	{
 		$.ajax({
