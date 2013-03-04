@@ -47,6 +47,19 @@ def new_connection(conn):
 			file = open(chatroom, 'r')
 			connection.send(str(file.read()))	
 			file.close()	
+		elif(data.startswith('GET /REFRESH')):
+			#import pdb; pdb.set_trace();
+			return_data = data.split('?')[1].split('&')
+			room = None
+			for r in return_data:
+				temp = r.split('=')
+				if temp[0].lower() == 'room':
+					room = str(temp[1]).replace('+',' ')
+			chatroom = room + '.txt'
+			print >>sys.stderr, chatroom
+			file = open(chatroom, 'r')
+			connection.send(str(file.read()))	
+			file.close()				
 		elif(data.startswith('GET')):
                         filetag = data.split('\r\n')[0].split(' ')[1]
                         if filetag == '/':

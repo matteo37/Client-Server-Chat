@@ -29,7 +29,10 @@
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="/jquery.cookie.js"></script>
 <script>
-	$(function() {
+$(function() {
+ 	function getip(json){
+      alert(json.ip); // alerts the ip address
+    }
 	$.extend({
 	  getUrlVars: function(){
 	    var vars = [], hash;
@@ -57,7 +60,7 @@
 		$.ajax({
 		    type: "GET",
 		    data: $('#chat_form').serialize(),
-		    url: "http://localhost:9020/CHAT"
+		    url: "http://192.168.100.184:9020/CHAT"
 		}).done(function(data){
 		    $("#display_chat").val(data);
 		});		
@@ -69,8 +72,17 @@
 		ajaxFunction();
 		$('#line').val('');
 	});
-
-	//setInterval( "ajaxFunction()", 10000 ); 
+	refreshFunction = function refreshCall()
+	{
+		$.ajax({
+		    type: "GET",
+		    data: $('#chat_form').serialize(),
+		    url: "http://192.168.100.184:9020/REFRESH"
+		}).done(function(data){
+		    $("#display_chat").val(data);
+		});		
+	}
+	setInterval( "refreshFunction()", 5000); 
 
 
 });
