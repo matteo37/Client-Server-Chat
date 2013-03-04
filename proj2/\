@@ -47,8 +47,7 @@ def new_connection(conn):
                         if filetag == '/':
                                 filetag = '/index.html'
 			if '?' in filetag:
-				filetag = filetag.split('?')[0]
-			print filetag
+				filetag = filetag.split('?')
                         filename = os.path.abspath('') + filetag
                         #import pdb; pdb.set_trace();
 			f = open(filename, 'r')
