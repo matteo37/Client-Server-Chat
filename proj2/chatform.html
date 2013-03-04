@@ -5,7 +5,7 @@
 </head>
 <body>
 	<div class="box">
-		<h1>Bryson and Matt's Chat Room</h1>
+		<h1 id="chatroom">Bryson and Matt's Chat Room</h1>
 		<form>
 			<label>
 				<span>Messages:</span>
@@ -13,7 +13,8 @@
 			</label>
 		</form>
 		<form name="chat_form" id="chat_form">	
-				<input type='hidden' class="input_text" name='name' />
+			<input type='hidden' id="hidden_room" class="input_text" name='room' />			
+			<input type='hidden' id="hidden_name" class="input_text" name='name' />
 			<label>
 				<span>Content:</span>
 				<input type='text' class="input_text" name='line' id='line' />
@@ -28,9 +29,29 @@
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="/jquery.cookie.js"></script>
 <script>
-$(function() {
-	$.cookie("test", 1);
-	console.log($.cookie("test"));
+	$(function() {
+	$.extend({
+	  getUrlVars: function(){
+	    var vars = [], hash;
+	    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	    for(var i = 0; i < hashes.length; i++)
+	    {
+	      hash = hashes[i].split('=');
+	      vars.push(hash[0]);
+	      vars[hash[0]] = hash[1];
+	    }
+	    return vars;
+	  },
+	  getUrlVar: function(name){
+	    return $.getUrlVars()[name];
+	  }
+	});
+	$.cookie("name", $.getUrlVar('name'));
+	$('#hidden_name').val($.cookie("name"));
+	$.cookie("room", $.getUrlVar('room'));
+	$('#hidden_room').val($.cookie("room"));
+	var room = $.cookie("room");
+	$('#chatroom').replaceWith("<h1>"+ room.replace("+", " ") + "</h2>");
 	ajaxFunction = function ajaxCall()
 	{
 		$.ajax({
