@@ -18,6 +18,7 @@ sock.listen(20)
 #initialize vars
 chat_log = []
 def new_connection(conn):
+
 	connection = conn
     # Wait for a connection
 	try:
@@ -68,8 +69,10 @@ def new_connection(conn):
 try:
 	while(True):
 		print >>sys.stderr, 'waiting for a connection'
+		#import pdb; pdb.set_trace();
 		connection, client_address = sock.accept()
 		start_new_thread(new_connection,(connection,))
 except:
+	print >> sys.stderr
 	sock.close()
 
