@@ -28,18 +28,22 @@ def new_connection(conn):
 			return_data = data.split('?')[1].split('&')
 			name = None
 			content = None
+			room = None
 			for r in return_data:
 				temp = r.split('=')
 				if temp[0].lower() == 'name':
 					name = temp[1].replace('+',' ')
 				if temp[0].lower() == 'line':
 					content = str(temp[1]).split(' HTTP')[0].replace('+',' ')
+				if temp[0].lower() == 'room':
+					room = str(temp[1]).replace('+',' ')
+			chatroom = room + '.txt'
                         # Just ake it put the contents into the chatlog.txt file and then they will be displayed nicely
-			if name != None and content != None:
-				file = open('chatlog.txt', 'a')
+			if name != None and content != None and room != None:
+				file = open(chatroom, 'a')
 				file.write(str(name)+': '+str(content)+'\n')
 				file.close()
-			file = open('chatlog.txt', 'r')
+			file = open(chatroom, 'r')
 			connection.send(str(file.read()))	
 			file.close()	
 		elif(data.startswith('GET')):
