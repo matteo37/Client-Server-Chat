@@ -45,7 +45,7 @@ def new_connection(conn):
 		elif(data.startswith('GET')):
                         filetag = data.split('\r\n')[0].split(' ')[1]
                         if filetag == '/':
-                                filetag = '/chat.html'
+                                filetag = '/index.html'
                         filename = os.path.abspath('') + filetag
                         #import pdb; pdb.set_trace();
 			f = open(filename, 'r')
