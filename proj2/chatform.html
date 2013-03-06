@@ -55,6 +55,8 @@ $(function() {
 	$('#hidden_room').val($.cookie("room"));
 	var room = $.cookie("room");
 	$('#chatroom').replaceWith("<h1>"+ room.replace("+", " ") + "</h2>");
+	var myDiv = $("#display_chat");
+	myDiv.animate({ scrollTop: myDiv.attr("scrollHeight") - myDiv.height() }, 3000)
 	ajaxFunction = function ajaxCall()
 	{
 		$.ajax({
