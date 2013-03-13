@@ -2,6 +2,10 @@
 from socket import *
 import sys, os
 from thread import *
+from mimetypes import MimeTypes
+import urllib 
+
+# import magic
 
 # Create a TCP/IP socket
 sock = socket(AF_INET,SOCK_STREAM)
@@ -23,7 +27,7 @@ def new_connection(conn):
 	try:
 		print 'connected'
 		#Loop on responses
-		data = connection.recv(2000)
+		data = connection.recv(20000)
 		#handle the GET?CHAT? command
 		if(data.startswith('GET /CHAT')):
 			return_data = data.split('?')[1].split('&')
@@ -47,6 +51,7 @@ def new_connection(conn):
 				file.close()
 			file = open(chatroom, 'r')
 			#sends the response
+
 			connection.send(str(file.read()))	
 			file.close()	
 		# Just get teh updated chatlog file content
@@ -77,7 +82,31 @@ def new_connection(conn):
 			filename = os.path.abspath('') + filetag
 			f = open(filename, 'r')
 			#sends the response
-			connection.send(str(f.read()))	
+			# mimeType = magic.from_file(filename, mime=True)
+			mime = MimeTypes()
+			url = urllib.pathname2url(filename)
+			mimeType = mime.guess_type(url)
+			print >>sys.stderr, mimeType[0]
+			body = str(f.read())
+			# Clearly state that connection will be closed after this response,
+			# and specify length of response body
+			response_headers = {
+				'Content-Type': mimeType[0] + ' encoding=utf8',
+				'Content-Length': len(body),
+				'Connection': 'close',
+			}
+
+			response_headers_raw = ''.join('%s: %s\n' % (k, v) for k, v in response_headers.iteritems())
+
+			# Reply as HTTP/1.1 server, saying "HTTP OK" (code 200).
+			response_proto = 'HTTP/1.1'
+			response_status = '200'
+			response_status_text = 'OK' # this can be random
+			connection.send('%s %s %s' % (response_proto, response_status, response_status_text))
+			connection.send(response_headers_raw)
+			connection.send('\n') # to separate headers from body
+			connection.send(body)		
+			#connection.send(str(f.read()))	
 			f.close()	
 		
 		connection.close()
@@ -93,6 +122,5 @@ try:
 		#Create a new thread when a connection is initiated
 		start_new_thread(new_connection,(connection,))
 except:
-	print >> sys.stderr
 	sock.close()
 
