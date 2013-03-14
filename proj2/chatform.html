@@ -61,7 +61,7 @@ $(function() {
 		$.ajax({
 		    type: "GET",
 		    data: $('#chat_form').serialize(),
-		    url: "http://192.168.100.184:9020/CHAT"
+		    url: "/CHAT"
 		}).done(function(data){
 		    $("#display_chat").val(data);
 		});			
@@ -78,7 +78,7 @@ $(function() {
 		$.ajax({
 		    type: "GET",
 		    data: $('#chat_form').serialize(),
-		    url: "http://192.168.100.184:9020/REFRESH"
+		    url: "/REFRESH"
 		}).done(function(data){
 		    $("#display_chat").val(data);
 		});		
